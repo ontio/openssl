@@ -373,7 +373,11 @@ static int provider_activate(OSSL_PROVIDER *prov)
             }
 
             if (load_dir == NULL)
+			#ifdef ONTOLOGY_WASM
+                load_dir = "";
+			#else
                 load_dir = MODULESDIR;
+			#endif
 
             DSO_ctrl(prov->module, DSO_CTRL_SET_FLAGS,
                      DSO_FLAG_NAME_TRANSLATION_EXT_ONLY, NULL);

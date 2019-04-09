@@ -23,6 +23,7 @@ extern "C" {
  **/
 
 # define OPENSSL_SYS_UNIX
+#  undef OPENSSL_SYS_UNIX
 
 /* --------------------- Microsoft operating systems ---------------------- */
 

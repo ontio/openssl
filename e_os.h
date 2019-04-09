@@ -17,6 +17,14 @@
 # include <openssl/crypto.h>
 # include "internal/nelem.h"
 
+#define ONTOLOGY_WASM
+#ifdef ONTOLOGY_WASM
+#  define NO_CHMOD
+#  define NO_SYSLOG
+#   define OPENSSL_NO_POSIX_IO
+# define OPENSSL_RAND_SEED_NONE
+#endif
+
 /*
  * <openssl/e_os2.h> contains what we can justify to make visible to the
  * outside; this file e_os.h is not part of the exported interface.
@@ -208,12 +216,6 @@ extern FILE *_imp___iob;
 #  endif
 
 # else                          /* The non-microsoft world */
-
-#  if defined(OPENSSL_SYS_VXWORKS)
-#   include <sys/times.h>
-#  else
-#   include <sys/time.h>
-#  endif
 
 #  ifdef OPENSSL_SYS_VMS
 #   define VMS 1
