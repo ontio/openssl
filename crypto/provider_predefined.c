@@ -10,9 +10,13 @@
 #include <openssl/core.h>
 #include "provider_local.h"
 
+#ifdef ONTOLOGY_WASM
 OSSL_provider_init_fn ossl_default_provider_init;
+#endif
 
 const struct predefined_providers_st predefined_providers[] = {
+#ifdef ONTOLOGY_WASM
     { "default", ossl_default_provider_init, 1 },
+#endif
     { NULL, NULL, 0 }
 };
