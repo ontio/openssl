@@ -14,30 +14,54 @@
 
 const char *X509_get_default_private_dir(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm0";
+#else
     return X509_PRIVATE_DIR;
+#endif
 }
 
 const char *X509_get_default_cert_area(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm1";
+#else
     return X509_CERT_AREA;
+#endif
 }
 
 const char *X509_get_default_cert_dir(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm2";
+#else
     return X509_CERT_DIR;
+#endif
 }
 
 const char *X509_get_default_cert_file(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm3";
+#else
     return X509_CERT_FILE;
+#endif
 }
 
 const char *X509_get_default_cert_dir_env(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm4";
+#else
     return X509_CERT_DIR_EVP;
+#endif
 }
 
 const char *X509_get_default_cert_file_env(void)
 {
+#ifdef ONTOLOGY_WASM
+	return "/ontologywasm5";
+#else
     return X509_CERT_FILE_EVP;
+#endif
 }

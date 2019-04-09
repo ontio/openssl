@@ -8,7 +8,16 @@
  */
 
 #ifndef HEADER_CRYPTLIB_H
+
 # define HEADER_CRYPTLIB_H
+
+#define ONTOLOGY_WASM
+#ifdef ONTOLOGY_WASM
+#  define NO_CHMOD
+#  define NO_SYSLOG
+#   define OPENSSL_NO_POSIX_IO
+# define OPENSSL_RAND_SEED_NONE
+#endif
 
 # include <stdlib.h>
 # include <string.h>

@@ -758,7 +758,9 @@ static OSSL_STORE_LOADER_CTX *file_open(const OSSL_STORE_LOADER *loader,
                                         void *ui_data)
 {
     OSSL_STORE_LOADER_CTX *ctx = NULL;
+#ifndef ONTOLOGY_WASM
     struct stat st;
+#endif
     struct {
         const char *path;
         unsigned int check_absolute:1;
@@ -823,12 +825,16 @@ static OSSL_STORE_LOADER_CTX *file_open(const OSSL_STORE_LOADER *loader,
             return NULL;
         }
 
+#ifndef ONTOLOGY_WASM
         if (stat(path_data[i].path, &st) < 0) {
             SYSerr(SYS_F_STAT, errno);
             ERR_add_error_data(1, path_data[i].path);
         } else {
+#endif
             path = path_data[i].path;
+#ifndef ONTOLOGY_WASM
         }
+#endif
     }
     if (path == NULL) {
         return NULL;
@@ -843,6 +849,7 @@ static OSSL_STORE_LOADER_CTX *file_open(const OSSL_STORE_LOADER *loader,
         return NULL;
     }
 
+#ifndef ONTOLOGY_WASM
     if (S_ISDIR(st.st_mode)) {
         /*
          * Try to copy everything, even if we know that some of them must be
@@ -868,7 +875,9 @@ static OSSL_STORE_LOADER_CTX *file_open(const OSSL_STORE_LOADER *loader,
             }
             ctx->_.dir.end_reached = 1;
         }
-    } else {
+    } else 
+#endif
+	{
         BIO *buff = NULL;
         char peekbuf[4096] = { 0, };
 
